@@ -1,0 +1,15 @@
+<html>
+<body>
+<textarea id="textarea2"></textarea>
+<button onclick="savetext()">Save</button>
+<button onclick="loadtext()">Load Save</button>
+<script>
+function savetext() {
+localstorage.SetItem('savedtext', document.getElementById("textarea2").innerHTML);
+}
+function loadtext() {
+document.getElementById("textarea2").innerHTML = if(localstorage.GetItem('savedtext') == null){return false}else{return localstorage.getItem('savedtext')}
+}
+</script>
+</body>
+</html>
