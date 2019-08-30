@@ -7,7 +7,7 @@ Here is the orteil home page:
 http://orteil.dashnet.org/
 
 
-The purpose of this repository is to unblock cookie clicker, it is blocked by the school network
+The purpose of this repository is to unblock cookie clicker, it is blocked by my school's network
 
 All rights go to Orteil
 
