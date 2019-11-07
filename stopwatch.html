@@ -1,0 +1,85 @@
+<!DOCTYPE html><title>Stopwatch</title><script src="https://cdn.jsdelivr.net/npm/hacktimer@1.1.3/HackTimer.js"></script><div class="numbers"><div id='minutes'>0</div><p>:</p><div id="seconds2">0</div><div id="seconds">0</div><p>:</p><div id="milliseconds2">0</div><div id="milliseconds">0</div></div><br><button onclick="start()" id="start" class="buttons">Start</button><button onclick="stop()" id="stop" class="buttons">Stop</button><button onclick="cleartime()" class="buttons">Clear</button><br><br><p id="hiddendisplay">0</p><p>Spacebar is to stop/start (or you could hit the button) and C is to clear and stop.</p><style>div {
+  display:inline;
+}
+p {
+  display:inline;
+}
+#hiddendisplay {
+  display:none;
+}
+#stop {
+  display:none;
+}
+.numbers {left: 45%; position: relative; font-size: 45px;}
+.buttons {left: 46.4%; position: relative; background-color: white; color: ;}
+body {
+  font-family: Times New Roman;
+}</style><script>
+  var fakeIdToId = {};
+onmessage = function (event) {
+	var data = event.data,
+		name = data.name,
+		fakeId = data.fakeId,
+		time;
+	if(data.hasOwnProperty('time')) {
+		time = data.time;
+	}
+	switch (name) {
+		case 'setInterval':
+			fakeIdToId[fakeId] = setInterval(function () {
+				postMessage({fakeId: fakeId});
+			}, time);
+			break;
+		case 'clearInterval':
+			if (fakeIdToId.hasOwnProperty (fakeId)) {
+				clearInterval(fakeIdToId[fakeId]);
+				delete fakeIdToId[fakeId];
+			}
+			break;
+		case 'setTimeout':
+			fakeIdToId[fakeId] = setTimeout(function () {
+				postMessage({fakeId: fakeId});
+				if (fakeIdToId.hasOwnProperty (fakeId)) {
+					delete fakeIdToId[fakeId];
+				}
+			}, time);
+			break;
+		case 'clearTimeout':
+			if (fakeIdToId.hasOwnProperty (fakeId)) {
+				clearTimeout(fakeIdToId[fakeId]);
+				delete fakeIdToId[fakeId];
+			}
+			break;
+	}
+}
+  setInterval(function(){
+if(document.getElementById('hiddendisplay').innerHTML == "1"){var xyz = parseInt(document.getElementById('milliseconds').innerHTML) + 1;document.getElementById('milliseconds').innerHTML = xyz;} 
+  if(document.getElementById('milliseconds').innerHTML == "10"){document.getElementById('milliseconds2').innerHTML= parseInt(document.getElementById('milliseconds2').innerHTML) + 1; document.getElementById('milliseconds').innerHTML = "0"} 
+  if(document.getElementById('milliseconds2').innerHTML == "10"){document.getElementById('seconds').innerHTML= parseInt(document.getElementById('seconds').innerHTML) + 1; document.getElementById('milliseconds2').innerHTML = "0"} if(document.getElementById('seconds').innerHTML == "10"){document.getElementById('seconds2').style.display = "none"} if(document.getElementById('seconds').innerHTML == "60"){document.getElementById('minutes').innerHTML = parseInt(document.getElementById('minutes').innerHTML) + 1; document.getElementById('seconds').innerHTML = "0"; document.getElementById('seconds2').style.display = "inline";}}, 10);
+function start() {
+  document.getElementById('hiddendisplay').innerHTML = "1"; document.getElementById('stop').style.display = "inline"; document.getElementById('start').style.display = "none";
+}
+function stop() {
+  var stopper = document.getElementById('hiddendisplay').innerHTML = "0";
+  stopper
+  document.getElementById('stop').style.display = "none"; document.getElementById('start').style.display = "inline";
+}
+function cleartime() {
+  document.getElementById('minutes').innerHTML = "0";
+  document.getElementById('seconds').innerHTML = "0";
+  document.getElementById('seconds2').innerHTML = "0";
+  document.getElementById('seconds2').style.display = "inline";
+  document.getElementById('milliseconds').innerHTML = "0";
+  document.getElementById('milliseconds2').innerHTML = "0";
+  document.getElementById('hiddendisplay').innerHTML = "0";
+  document.getElementById('stop').style.display = "none"; document.getElementById('start').style.display = "inline";
+}
+window.addEventListener("keydown", checkKeyPressed, false);
+ window.addEventListener("keydown", checkKeyC, false);
+function checkKeyPressed(e) {
+    if (e.keyCode == "32") {
+  if(document.getElementById('hiddendisplay').innerHTML == "0"){start()} else{stop()};}}
+  function checkKeyC(e) {
+    if (e.keyCode == "67") {
+cleartime()
+    }}</script>
