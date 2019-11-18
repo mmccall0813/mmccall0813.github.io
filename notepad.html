@@ -2,12 +2,16 @@
 <textarea id="textarea2"></textarea><br>
 <button onclick="savetext()">Save</button>
 <button onclick="loadtext()">Load Save</button>
+  <input type="checkbox" id="checkbox" onclick="autosave(this)">Autosave</input>
 <script>
 function savetext() {
 localStorage.setItem('savedText', document.getElementById("textarea2").value);
 }
 function loadtext() {
 document.getElementById("textarea2").value = localStorage.getItem('savedText')
+}
+function autosave(thething) {
+if(thething.checked){setInterval(savetext, 500)}else if(thething.checked == false){clearInterval(savetext)}
 }
 </script>
 <style>
