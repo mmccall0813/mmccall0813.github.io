@@ -1,4 +1,5 @@
-<textarea id="textarea2"></textarea>
+<body onload="loadtext()">
+<textarea id="textarea2"></textarea><br>
 <button onclick="savetext()">Save</button>
 <button onclick="loadtext()">Load Save</button>
 <script>
@@ -9,3 +10,10 @@ function loadtext() {
 document.getElementById("textarea2").value = localStorage.getItem('savedText')
 }
 </script>
+<style>
+  #textarea2 {
+  width:50%;
+    height:40%;
+  }
+  </stlye>
+</body>
