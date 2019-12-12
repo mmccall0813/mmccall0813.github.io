@@ -84,7 +84,7 @@ html += "    <button class=\"ScriptHub\" onclick=\"if(window.location == 'https:
 html += " <script>"
 html += "    function quiz(){";
 html += "      var q=document.createElement(\"script\");";
-html += "      q.src=\"https:\/\/mmccall0813.github.io\/quizlet.js\";";
+html += "      q.src=\"https://mmccall0813.github.io/quizlet.js\";";
 html += "      document.body.appendChild(q);";
 html += "    }";
 html += "    <\/script>";
