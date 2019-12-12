@@ -9,6 +9,7 @@ dlfdfkjiesxcmdsdfF += "   border-radius: 20px;";
 dlfdfkjiesxcmdsdfF += "   font-family: 'Roboto', Sans-serif;";
 dlfdfkjiesxcmdsdfF += "  position: fixed;";
 dlfdfkjiesxcmdsdfF += "  left:10px; top:30px; background-color: white;";
+dlfdfkjiesxcmdsdfF += "   color: black;"
 dlfdfkjiesxcmdsdfF += "  z-index:99999;";
 dlfdfkjiesxcmdsdfF += "   width: 500px;";
 dlfdfkjiesxcmdsdfF += "    -webkit-animation: fadein 2s; \/* Safari, Chrome and Opera > 12.1 *\/";
