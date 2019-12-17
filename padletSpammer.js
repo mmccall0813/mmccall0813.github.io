@@ -1,0 +1,34 @@
+var MasonsSpammer="";
+MasonsSpammer += "<div id=\"PadletSpammer\">";
+MasonsSpammer += "  <style>";
+MasonsSpammer += "    #PadletSpammer {";
+MasonsSpammer += "  width: 200px;";
+MasonsSpammer += "  border:2px solid black;";
+MasonsSpammer += "  padding: 3px;";
+MasonsSpammer += "  border-radius: 5px;";
+MasonsSpammer += "  position:fixed;";
+MasonsSpammer += "  left:10px;";
+MasonsSpammer += "  top: 100px;";
+MasonsSpammer += "  background-color:white;";
+MasonsSpammer += "  z-index: 99999;";
+MasonsSpammer += "}";
+MasonsSpammer += "  <\/style>";
+MasonsSpammer += "  <script>";
+MasonsSpammer += "    var interval;";
+MasonsSpammer += "function StartSpammer(){";
+MasonsSpammer += "  interval = setInterval(PadletSpammer, 50);";
+MasonsSpammer += "}";
+MasonsSpammer += "function StopSpammer(){";
+MasonsSpammer += "  window.clearInterval(interval);";
+MasonsSpammer += "}";
+MasonsSpammer += "function PadletSpammer(){";
+MasonsSpammer += "  document.querySelector(\"trix-editor\").innerHTML = document.getElementById(\"PadletSpamInput\").value;";
+MasonsSpammer += "  ";
+MasonsSpammer += "  setTimeout(function(){document.querySelector(\".narrow-button.flat-button\").click();}, 25);";
+MasonsSpammer += "}";
+MasonsSpammer += "  <\/script>";
+MasonsSpammer += "<input id=\"PadletSpamInput\" placeholder=\"Spam text\" \/> <button onclick=\"StartSpammer()\">Start<\/button> <button onclick=\"StopSpammer()\">Stop<\/button>";
+MasonsSpammer += "<\/div>";
+var elem = document.createElement("DIV")
+elem.innerHTML = MasonsSpammer;
+document.body.appendChild(elem)
