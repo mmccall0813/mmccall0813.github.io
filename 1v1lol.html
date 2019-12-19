@@ -3,11 +3,113 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
+	<script src="https://cdn.temasys.io/skylink/skylinkjs/0.6.x/skylink.complete.min.js"></script>
+	<stlye>
+	
+#chatbox {
+  position: absolute;
+  border: 1px #ddd solid;
+  height: 280px;
+  width: 200px;
+		top:30px;
+		right:10px;
+		z-index:3333;
+  background-color: rgba(0, 0, 0, 0.2);
+  font-family: Arial;
+}
+
+.action {
+  font-style: italic;
+  color: black;
+}
+
+.you {
+  font-weight: bold;
+}
+		#buttonsContainer {
+  position: absolute;
+  padding:10px;
+  width:260px;
+  right:10px;
+  top: 340px;
+		z-index:50000;
+		opacity:0.5;
+}
+		</style>
     <meta charset="utf-8">
     <title>1v1.LOL - Online Building Simulator</title>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118283086-6"></script>
     <script>
+	    var skylink = new Skylink();
+
+skylink.on('peerJoined', function(peerId, peerInfo, isSelf) {
+  var user = 'You';
+  if(!isSelf) {
+    user = peerInfo.userData.name || peerId;
+  }
+  addMessage(user + ' joined the room', 'action');
+});
+
+skylink.on('peerUpdated', function(peerId, peerInfo, isSelf) {
+  if(isSelf) {
+    user = peerInfo.userData.name || peerId;
+    addMessage('You\'re now known as ' + user, 'action');
+  }
+});
+
+skylink.on('peerLeft', function(peerId, peerInfo, isSelf) {
+  var user = 'You';
+  if(!isSelf) {
+    user = peerInfo.userData.name || peerId;
+  }
+  addMessage(user + ' left the room', 'action');
+});
+
+skylink.on('incomingMessage', function(message, peerId, peerInfo, isSelf) {
+  var user = 'You',
+      className = 'you';
+  if(!isSelf) {
+    user = peerInfo.userData.name || peerId;
+    className = 'message';
+  }
+  addMessage(user + ': ' + message.content, className);
+});
+
+skylink.init({
+  appKey: 'f1773757-5f8b-42dc-b1ef-2374066866f6',
+  defaultRoom: 'LGpMxj'
+}); // Get your own key at https://console.temasys.io
+
+function setName() {
+  var input = document.getElementById('name');
+  skylink.setUserData({
+    name: input.value
+  });
+}
+
+function joinRoom() {
+  skylink.joinRoom();
+}
+
+function leaveRoom() {
+  skylink.leaveRoom();
+}
+
+function sendMessage() {
+  var input = document.getElementById('message');
+  skylink.sendP2PMessage(input.value);
+  input.value = '';
+  input.select();
+}
+
+function addMessage(message, className) {
+  var chatbox = document.getElementById('chatbox'),
+    div = document.createElement('div');
+  div.className = className;
+  div.textContent = message;
+  chatbox.appendChild(div);
+}
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -293,6 +395,16 @@ canvas + * {
 </head>
 
 <body>
+	<div id="buttonsContainer">
+    <input type="text" id="name" placeholder="Chat Name"/>
+    <button onclick="setName()">Set my name</button>
+    <button onclick="joinRoom()">Join room</button>
+    <button onclick="leaveRoom()">Leave room</button>
+    <input type="text" id="message" placeholder="My message" />
+    <button onclick="sendMessage()">Send message</button>
+  </div>
+    <div id="chatbox"></div>
+  
 	<div id="generalModal" class="modal">
 		<div id="generalModalContent" class="modalContent"></div>
 	</div>
